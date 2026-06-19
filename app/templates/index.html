@@ -75,7 +75,11 @@
             <div class="travel-list">
                 {% for place in travel_places %}
                 <div class="card">
+                    <img src="{{ url_for('static', filename='img/singapore.jpg') }}"
+                         alt="Gardens by the Bay, Singapore"
+                         style="width:100%; border-radius:8px; margin-bottom:10px;">
                     <h3>📍 {{ place.name }}</h3>
+                    <p>Gardens by the Bay – Singapore's Green Wonder</p>
                 </div>
                 {% endfor %}
             </div>
