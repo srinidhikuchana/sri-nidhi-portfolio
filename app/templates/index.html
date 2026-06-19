@@ -72,20 +72,38 @@
 
         <section class="section" id="travel">
             <h2>Places I've Been</h2>
-            <div class="travel-list">
-                {% for place in travel_places %}
-                <div class="card">
-                    <img src="{{ url_for('static', filename='img/singapore.jpg') }}"
-                         alt="Gardens by the Bay, Singapore"
-                         style="width:100%; border-radius:8px; margin-bottom:10px;">
-                    <h3>📍 {{ place.name }}</h3>
-                    <p>Gardens by the Bay – Singapore's Green Wonder</p>
-                </div>
-                {% endfor %}
-            </div>
+            <div id="travel-map" class="travel-map"></div>
         </section>
 
     </main>
 
+    <script>
+        const travelPlaces = {{ travel_places | tojson }};
+
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("travel-map"), {
+                zoom: 4,
+                center: travelPlaces.length ? travelPlaces[0] : { lat: 20.5937, lng: 78.9629 },
+            });
+            travelPlaces.forEach((place) => {
+                new google.maps.Marker({
+                    position: { lat: place.lat, lng: place.lng },
+                    map: map,
+                    title: place.name,
+                });
+            });
+        }
+    </script>
+    <!--
+        To make the map render, get a free Google Maps JavaScript API key
+        (https://developers.google.com/maps/documentation/javascript/get-api-key)
+        and add it to your .env file as GOOGLE_MAPS_API_KEY, then uncomment
+        the script tag below.
+    -->
+    {% if google_maps_api_key %}
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap">
+    </script>
+    {% endif %}
 </body>
 </html>
