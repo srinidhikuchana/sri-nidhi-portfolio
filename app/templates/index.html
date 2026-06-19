@@ -14,6 +14,9 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     <link rel='icon' href="{{ url_for('static', filename='img/favicon.ico') }}" type='image/x-icon' />
     <title>{{ title }}</title>
@@ -72,38 +75,31 @@
 
         <section class="section" id="travel">
             <h2>Places I've Been</h2>
-            <div id="travel-map" class="travel-map"></div>
+            <div id="travel-map" style="height: 400px; border-radius: 12px; margin-top: 1rem;"></div>
         </section>
 
     </main>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const travelPlaces = {{ travel_places | tojson }};
 
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("travel-map"), {
-                zoom: 4,
-                center: travelPlaces.length ? travelPlaces[0] : { lat: 20.5937, lng: 78.9629 },
-            });
-            travelPlaces.forEach((place) => {
-                new google.maps.Marker({
-                    position: { lat: place.lat, lng: place.lng },
-                    map: map,
-                    title: place.name,
-                });
-            });
-        }
+        const map = L.map('travel-map').setView(
+            [travelPlaces[0].lat, travelPlaces[0].lng], 5
+        );
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        travelPlaces.forEach(function(place) {
+            L.marker([place.lat, place.lng])
+                .addTo(map)
+                .bindPopup('<b>📍 ' + place.name + '</b>')
+                .openPopup();
+        });
     </script>
-    <!--
-        To make the map render, get a free Google Maps JavaScript API key
-        (https://developers.google.com/maps/documentation/javascript/get-api-key)
-        and add it to your .env file as GOOGLE_MAPS_API_KEY, then uncomment
-        the script tag below.
-    -->
-    {% if google_maps_api_key %}
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap">
-    </script>
-    {% endif %}
+
 </body>
 </html>
