@@ -203,3 +203,136 @@ body {
     object-fit: contain;
     margin-bottom: 12px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Shared team homepage */
+
+.team-homepage {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+    padding: 56px 0;
+}
+
+.team-hero {
+    text-align: center;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 48px 32px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    margin-bottom: 36px;
+}
+
+.team-hero .eyebrow {
+    color: #1c539f;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+}
+
+.team-hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    margin: 0 0 16px;
+    color: #172033;
+}
+
+.team-hero p {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #4b5563;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.team-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+}
+
+.team-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    background: #1c539f;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 900;
+    border: 6px solid #e8f0fe;
+}
+
+.team-card h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 28px;
+}
+
+.team-role {
+    color: #1c539f;
+    font-weight: 800;
+    margin: 10px 0 14px;
+}
+
+.team-description {
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.team-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.team-actions.single-action {
+    margin-top: 28px;
+}
+
+.button-link.secondary {
+    background: #eef4ff;
+    color: #1c539f;
+}
+
+.button-link.secondary:hover {
+    background: #dceafe;
+}
+
+@media (max-width: 800px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-hero {
+        padding: 36px 22px;
+    }
+}
