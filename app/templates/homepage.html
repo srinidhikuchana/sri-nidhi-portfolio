@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
 </head>
+
 <body>
     {% include "_nav.html" %}
 
@@ -15,7 +23,7 @@
             <h1>Sri Nidhi & Aziz Portfolio</h1>
             <p>
                 A shared team portfolio built with Flask, Jinja, HTML, CSS, and JavaScript.
-                Select a profile below to view each team member's portfolio.
+                Choose a team member below to explore their portfolio and hobbies.
             </p>
         </section>
 
@@ -26,9 +34,11 @@
                     {{ member.initials }}
                 </div>
 
-                <h2>{{ member.name }}</h2>
-                <p class="team-role">{{ member.role }}</p>
-                <p class="team-description">{{ member.description }}</p>
+                <div class="team-card-body">
+                    <h2>{{ member.name }}</h2>
+                    <p class="team-role">{{ member.role }}</p>
+                    <p class="team-description">{{ member.description }}</p>
+                </div>
 
                 <div class="team-actions">
                     <a class="button-link" href="{{ url_for(member.portfolio_endpoint) }}">
